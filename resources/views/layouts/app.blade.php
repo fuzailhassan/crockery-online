@@ -13,6 +13,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://kit.fontawesome.com/de84eb6c0f.js" crossorigin="anonymous"></script>
         <!-- Styles -->
         @livewireStyles
     </head>
