@@ -94,5 +94,8 @@
                     <li class="w-max mr-3"><i class="fa-solid fa-gem mr-1"></i>Everything we sell is genuine. We don't sell fake brands</li>                    
                 </ul>
         </div>
+        <div class="flex flex-row">
+            
+        </div>
     </div>
 </x-app-layout>
