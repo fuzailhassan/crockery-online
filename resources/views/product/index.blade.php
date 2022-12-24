@@ -2,9 +2,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="flex flex-col">
-                    <x-product-card />
-                    <x-product-card />
+                <div class="flex flex-col sm:flex-row justify-center">
+                    @foreach ($products as $product)
+                    
+                     <x-product-card :pid='$product->id' :name='$product->name' :price='$product->price' />                 
+                       
+                    @endforeach 
                 </div>
             </div>
         </div>

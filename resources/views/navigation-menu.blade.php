@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -16,16 +16,18 @@
                     @auth
                         <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
-                        </x-jet-nav-link>
-                        
-                    @else
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        </x-jet-nav-link>                        
+                    @endauth
+                    
+                    <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('about')">
                         {{ __('About') }}
-                    </x-jet-nav-link>
-                    @endauth
+                    </x-jet-nav-link>      
+                    <x-jet-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products.index')">
+                        {{ __('Products') }}
+                    </x-jet-nav-link>               
                 </div>
                 
 
@@ -35,7 +37,10 @@
                 
                
 
+                {{-- login --}}
+                
                 <!-- Settings Dropdown -->
+
                 @auth
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
@@ -87,7 +92,16 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+                @else
+                <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                    {{ __('Login') }}
+                </x-jet-nav-link> 
+
                 @endauth
+                <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                    <i class="fa-regular fa-bucket"></i>
+                </x-jet-nav-link>
+                <i class="fa-regular fa-user"></i>
             </div>
 
             <!-- Hamburger -->
