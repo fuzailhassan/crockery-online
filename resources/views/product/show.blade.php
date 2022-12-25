@@ -1,18 +1,15 @@
 <x-app-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- @php
-                session()->get('message','Success');
-            @endphp --}}
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">            
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                {{-- {{session()->get('message')}}
-                @if (session()->get('message'))
-                <x-jet-action-message>
-                </x-jet-action-message>
-                    
-                @endif --}}
+                @if ($message = Session::get('message'))
+                    <div class="text-green-800" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 4000)">
+                        <p class="w-full text-center">{{ $message }}</p>
+                    </div>
+                @endif             
                
                 <div class="flex flex-col sm:flex-row">
+                    
                     {{-- flex item image --}}
                     <div class="sm:m-2 sm:w-1/2 w-full mx-auto">
                         <img src="https://cdn.shopify.com/s/files/1/0671/0621/products/sdfhht_800x.jpg?v=1651310074" alt="" class="w-full rounded-md">
@@ -21,11 +18,7 @@
                     <div class="flex flex-col sm:justify-start sm:ml-2 mx-auto w-full">
                         {{-- inner flex item discount--}}
                         <div class="flex flex-row justify-between">
-                            @if ($message = Session::get('message'))
-        <div class="">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
+                            
                             @if ($product->discounted)
     
                             <div class="w-max bg-yellow-600 text-white p-2 mx-auto my-2 sm:ml-2">
@@ -33,6 +26,7 @@
                             </div>                            
                             
                             @endif
+                            @can(['update', 'delete'], $product)
                             <div>
                                 <a href="/products/{{$product->id}}/edit"> Edit </a>
                                 <form action="{{ route('products.destroy',$product->id) }}" method="post">
@@ -43,7 +37,8 @@
                                     </x-jet-button>
                                 </form>
 
-                            </div>
+                            </div>                                
+                            @endcan
 
                         </div>
                         {{-- inner flex item sale--}}
@@ -109,7 +104,7 @@
                         </div>
                         {{-- inner flex item --}}
                         <div class="block text-left mt-3">
-                            {{ $product->description }}
+                            {!! $product->description !!}
                         </div>
                     </div>
                 </div>

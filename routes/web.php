@@ -32,3 +32,4 @@ Route::middleware([
 
 
 Route::resource('products',ProductController::class);
+Route::resource('order',OrderController::class);
