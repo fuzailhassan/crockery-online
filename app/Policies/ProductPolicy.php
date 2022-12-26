@@ -90,7 +90,6 @@ class ProductPolicy
      */
     public function forceDelete(User $user, Product $product)
     {
-        return $user->isAdmin;
-        n 
+        return $user->isAdmin; 
     }
 }

@@ -15,7 +15,6 @@ class Counter extends Component
     {
         if($this->count>1)
         {
-
             $this->count--;
         }
         return;

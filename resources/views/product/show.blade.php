@@ -98,6 +98,7 @@
                         {{-- inner flex item and flex --}}
                         <div class="flex flex-row justify-center">
                             <livewire:counter />
+                            <livewire:add-tocart :product_id="$product->id" />
                             <x-jet-button class="bg-amber-500">
                                 Shop Now
                             </x-jet-button>                            

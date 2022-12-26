@@ -5,10 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Review extends Model
 {
     use HasFactory;
     private $fillable = [
-        'customer_id', 'product_id', 'quantity', 'checked_out'
+        'product_id','title','description', 'rating'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

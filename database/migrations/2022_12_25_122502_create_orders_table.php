@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_id');
-            $table->timestamps();
+            $table->unsignedBigInteger('customer_id');            
             $table->string('shipping_address');
             $table->string('billing_address');
             $table->decimal('order_total', 8, 2);
             $table->string('payment_method');
             $table->enum('order_status', ['pending', 'shipped', 'delivered']);
+            $table->date('shipped_at');
+            $table->date('delivered_at');
+            $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('users');
         });
