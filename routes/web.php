@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,6 @@ Route::middleware([
 
 Route::resource('products',ProductController::class);
 Route::resource('orders',OrderController::class);
+Route::resource('carts',CartController::class)->only([
+    'index'
+]);

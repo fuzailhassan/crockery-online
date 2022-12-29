@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Cart::class, 'cart');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +18,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = auth()->user()->carts->where('checkedout', 0);
-        
+        $carts = auth()->user()->carts->where('checkedout', 0)->all();          
+        return view('carts.index')->with('carts',$carts);
     }
 
     /**

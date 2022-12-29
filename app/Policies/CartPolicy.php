@@ -2,12 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Cart;
 use App\Models\User;
-use App\Models\Product;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class CartPolicy
 {
     use HandlesAuthorization;
 
@@ -17,21 +16,21 @@ class ProductPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(?User $user)
-    {
-        return true;
+    public function viewAny(User $user)
+    {        
+       return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user, Product $product)
+    public function view(User $user, Cart $cart)
     {
-        return true;
+        
     }
 
     /**
@@ -42,64 +41,60 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin == 1 
-                ? Response::allow()
-                : Response::denyAsNotFound();
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Product $product)
+    public function update(User $user, Cart $cart)
     {
-        return $user->isAdmin == 1 
-                ? Response::allow()
-                : Response::denyAsNotFound();
+        if ($user->id = $cart->user_id) {
+            return true;
+        }
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Product $product)
+    public function delete(User $user, Cart $cart)
     {
-        return $user->isAdmin == 1 
-                ? Response::allow()
-                : Response::denyAsNotFound();
+        if ($user->id = $cart->user_id) {
+            return true;
+        }
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Product $product)
+    public function restore(User $user, Cart $cart)
     {
-        return $user->isAdmin == 1 
-                ? Response::allow()
-                : Response::denyAsNotFound();
+        if ($user->id = $cart->user_id) {
+            return true;
+        }
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Product $product)
+    public function forceDelete(User $user, Cart $cart)
     {
-        return $user->isAdmin == 1 
-                ? Response::allow()
-                : Response::denyAsNotFound(); 
+        return $user->isAdmin;
     }
 }

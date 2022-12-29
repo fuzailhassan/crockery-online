@@ -35,7 +35,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 
-               
+                <livewire:cart />
 
                 {{-- login --}}
                 
@@ -43,6 +43,7 @@
 
                 @auth
                 <div class="ml-3 relative">
+                    
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -97,11 +98,7 @@
                     {{ __('Login') }}
                 </x-jet-nav-link> 
 
-                @endauth
-                <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
-                    <i class="fa-regular fa-bucket"></i>
-                </x-jet-nav-link>
-                <i class="fa-regular fa-user"></i>
+                @endauth                
             </div>
 
             <!-- Hamburger -->
