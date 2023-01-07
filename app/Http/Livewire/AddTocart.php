@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Cart;
 use Livewire\Component;
 
+
 class AddToCart extends Component
 {
     public $product_id;
@@ -29,6 +30,8 @@ class AddToCart extends Component
                     'product_id' => $this->product_id
                 ]);
             }
+
+            $this->emit('updateCartCount');
         } else {
             return redirect()->route('login')->with('status','Login first!');
         }

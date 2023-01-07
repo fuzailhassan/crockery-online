@@ -35,7 +35,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 
-                <livewire:cart />
+                <livewire:cart-icon />
 
                 {{-- login --}}
                 

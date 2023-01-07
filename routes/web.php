@@ -29,11 +29,15 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    
 });
 
 
 Route::resource('products',ProductController::class);
 Route::resource('orders',OrderController::class);
-Route::resource('carts',CartController::class)->only([
-    'index'
+Route::resource('cart',CartController::class)->only([
+    'index',
+    'destroy'
 ]);
+// Route::get('/cart', [CartController::class, 'index'])->name('carts.index');
+// Route::get('/cart/{id}/destroy', [CartController::class, 'index'])->name('carts.destroy');
