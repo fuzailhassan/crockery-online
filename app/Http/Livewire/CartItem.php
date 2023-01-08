@@ -8,7 +8,7 @@ use Livewire\Component;
 class CartItem extends Component
 {
     // public $cartTotal, $cartPrice;
-    public $cart, $isDeleted;
+    public $cart, $display = true;
 
     protected $listeners = [        
         'updateTotal' => 'render'
@@ -26,8 +26,9 @@ class CartItem extends Component
     public function deleteCartItem(Cart $cart)
     {
         $this->cart->delete();
-        $this->isDeleted = true;
         $this->emit('updateCartCount');
+        $this->display = false;
+        
     }
     // public function updateQuantity($quantity, Cart $cart)
     // {

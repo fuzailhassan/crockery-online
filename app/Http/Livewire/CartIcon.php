@@ -14,7 +14,7 @@ class CartIcon extends Component
     public function render()
     {
         $this->updateCartCount();
-        return view('livewire.cart');
+        return view('livewire.cart-icon');
 
     }
 
