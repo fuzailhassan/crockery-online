@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
         if (auth()->user()->isAdmin) {
             return view('dashboard.index');
         } else {
-            return view('index');
+            return redirect()->route('home');
         }
         
     }
