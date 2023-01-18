@@ -21,15 +21,17 @@ class Cart extends Component
         
     public function mount()
     {
-        foreach ($this->carts as $cart ) {            
-                   
-            $this->cartTotal += ($cart->product->discounted) ? ($cart->product->price - $cart->product->discount) * $cart->quantity : $cart->product->price * $cart->quantity ;
-        }
+      
     }
     public function render()
     {        
         
+        foreach ($this->carts as $cart ) {            
+                   
+            $this->cartTotal += ($cart->product->discounted) ? ($cart->product->price - $cart->product->discount) * $cart->quantity : $cart->product->price * $cart->quantity ;
+        }
         return view('livewire.cart');
+
         
     }
 
@@ -39,7 +41,7 @@ class Cart extends Component
         $this->display = false;
         $this->emit('updateCartCount'); 
         $this->mount();
-        // return redirect()->route('cart.index');       
+        return redirect()->route('cart.index');       
         
         // $this->emit('isDeleted');
         

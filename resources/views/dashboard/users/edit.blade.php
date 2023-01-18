@@ -1,10 +1,7 @@
 <x-dashboard-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg sm:p-8">  
-                <h1 class="text-center text-3xl my-8">
-                    Edit User
-                </h1> 
+    <x-slot:heading>
+        Update User
+    </x-slot>
                 <x-jet-validation-errors class="mb-4" />
              
                 <div class="overflow-auto flex flex-col my-4">
@@ -12,9 +9,9 @@
                         @csrf
                         @method('PUT')
                         {{-- form sections --}}
-                        <div class="flex flex-col text-lg sm:flex-row justify-center justify-items-center">
+                        {{-- <div class="flex flex-col text-lg sm:flex-row justify-center justify-items-center"> --}}
                             {{-- form secton --}}
-                            <div class="flex flex-col space-y-6">
+                            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800   ">
                                 <div class="">
                                     <x-jet-label for="name" value="{{ __('Name') }}" />
                                     <x-jet-input id="name" class="block mt-1 w-full p-3" type="text" name="name" :value="old('name')" value="{{ $user->name }}"   required autofocus autocomplete="name" />

@@ -27,7 +27,7 @@ class CategoryController extends Controller
     public function create()
     {
         Gate::authorize('viewDashboard');
-        $categories = Category::all();
+        $categories = Category::paginate(8);
         return view('dashboard.categories.create')->with('categories', $categories);
     }
 
@@ -71,7 +71,11 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         Gate::authorize('viewDashboard');
-        return view('dashboard.categories.edit')->with('category', $category);
+        $categories = Category::paginate(10);
+        return view('dashboard.categories.edit')->with([
+            'category'=> $category,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -83,7 +87,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required','string'] 
+        ]);
+        $category->update([
+           'name' => $request['name'],
+           'description' => $request['description'], 
+        ]);
+        return redirect()->route('categories.create')->banner('Category Updated Successfully');
     }
 
     /**

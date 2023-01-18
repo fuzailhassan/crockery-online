@@ -1,12 +1,7 @@
 <x-dashboard-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <div class="w-full">
-                    <h1 class="text-center block m-2 font-bold text-3xl">
-                        Edit Product
-                    </h1>
-                </div>
+        <x-slot:heading>
+            Edit Product
+        </x-slot>
                 <x-jet-validation-errors class="mb-4" />
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js" integrity="sha512-eV68QXP3t5Jbsf18jfqT8xclEJSGvSK5uClUuqayUbF5IRK8e2/VSXIFHzEoBnNcvLBkHngnnd3CY7AFpUhF7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 <script>
@@ -14,18 +9,15 @@
                         selector: '#description'
                     });
                 </script>
-                <div class="flex flex-col sm:flex-row justify-center">
-                {{-- form --}}
-                    <div>
+ 
                         <form method="POST" action="{{ route('products.update',$product->id) }}" class="block">
                             @csrf
-                            @method('PUT')
-                            {{-- form sections --}}
-                            <div class="flex flex-col sm:flex-row justify-center justify-items-center">
-                                {{-- form secton --}}
-                                <div class="">
+                            @method("PUT")
 
-                                    <div>
+                                <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                                        <div class="">
+
+                                    <div class="">
                                         <x-jet-label for="name" value="{{ __('Name') }}" />
                                         <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" value="{{ $product->name }}"   required autofocus autocomplete="name" />
                                     </div>
@@ -54,17 +46,17 @@
                                     
                                 </div>
                                 {{-- form section --}}
-                                <div class="ml-5">
+                                <div class="mt-4">
                                     <x-jet-label for="description" value="{{ __('Description') }}" />
-                                    <textarea id="description" name="description" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="discription" cols="30" rows="10">{{old('description') ? old('discription') : $product->description}}</textarea> 
+                                    <textarea id="description" name="description" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="discription" cols="30" rows="10">{{old('description') ? old('discription') : $product->description}}</textarea> 
                                 </div>
                                 
                             </div>
-                            <div class="mt-4 text-center">
-                                <x-jet-button class="">
+                            <div class="text-center">
+                                
+                                <x-jet-button class="mb-8">
                                     Submit
                                 </x-jet-button>
-    
                             </div>
     
                         </form>

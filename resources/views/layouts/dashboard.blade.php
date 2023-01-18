@@ -1,45 +1,60 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html :class="{ 'dark': dark }" x-data="data()" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    
+    {{-- @vite(['resources/css/app.css']) --}}
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="newer stylesheet" href="{{ asset('administerator/assets/css/tailwind.output.css') }}" />
 
-        <title>{{ config('app.name', '') }}</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <script src="{{ asset('administerator/assets/js/init-alpine.js') }}"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      defer
+    ></script>
+    <script src="{{ asset('administerator/assets/js/charts-lines.js') }}" defer></script>
+    <script src="{{ asset('administerator/assets/js/charts-pie.js') }}" defer></script>
+  </head>
+  <body>
+    <div
+      class="flex h-screen bg-gray-50 dark:bg-gray-900"
+      :class="{ 'overflow-hidden': isSideMenuOpen }"
+    >
+    <x-dashboard.navigation />
+    <!-- Mobile sidebar -->
+    <x-dashboard.mobile-navigation />
+    <div class="flex flex-col flex-1 w-full">
+    <x-dashboard.header />
+    <main class="h-full overflow-y-auto">
+        <div class="container px-6 mx-auto grid">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-        <script src="https://kit.fontawesome.com/de84eb6c0f.js" crossorigin="anonymous"></script>
-        <!-- Styles -->
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
-
-        <div class="min-h-screen bg-gray-200 relative">
-            @livewire('dashboard-navigation-menu')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
+            @if (isset($heading))
+            <h2
+              class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+            >
+              {{ $heading }}
+            </h2>
+                
             @endif
 
-            <!-- Page Content -->
-            <main class="">
-                {{ $slot }}
-            </main>
+    {{ $slot }}
         </div>
+    </main>
 
-        @stack('modals')
-
-        @livewireScripts
-    </body>
+    </div>
+    </div>
+  </body>
 </html>

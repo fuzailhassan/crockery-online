@@ -17,12 +17,14 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/admin', [HomeController::class, 'dashboard'])
-    ->name('dashboard');
+    // Route::get('/admin', [HomeController::class, 'dashboard'])
+    // ->name('dashboard');
     
     Route::prefix('admin')->group(function () {
 
 
+        Route::get('/', [DashboardController::class, 'index'])
+        ->name('dashboard');
         Route::get('/products', [DashboardController::class, 'productsIndex'])
         ->name('dashboard.products.index');
         

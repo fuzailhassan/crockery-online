@@ -54,14 +54,15 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ?ModelsCart $carts)
+    public function store(Request $request)
     {
        $validated = $request->validate([
             'shipping_address' => ['required', 'string'],
             'billing_address' => ['required', 'string']
         ]);
-        $user_id = auth()->user()->id;        
-        $carts ?? auth()->user()->carts->where('checked_out', 0)->all();
+        
+        $user_id = auth()->user()->id;
+        $carts = auth()->user()->carts->where('checked_out', 0)->all();
         $total = 0;
         foreach ($carts as $cart) {
             $total += ($cart->product->discounted) ? ($cart->product->price - $cart->product->discount) * $cart->quantity : $cart->product->price * $cart->quantity ;

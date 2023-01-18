@@ -1,10 +1,11 @@
 <x-dashboard-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg sm:p-8">  
+    <x-slot:heading>
+                        Categories
+                    </x-slot>
+ 
                 <div class="flex flex-col sm:flex-row space-x-5">
                     <div class="sm:w-1/2 w-full px-4">
-                        <h1 class="text-center text-3xl my-8">
+                        <h1 class="text-center text-3xl my-8 dark:text-white">
                             Add Category
                         </h1>         
                         <x-jet-validation-errors class="mb-4" />
@@ -22,10 +23,10 @@
                                         </div>
                                         <div class="ml-5">
                                             <x-jet-label for="description" value="{{ __('Description') }}" />
-                                            <textarea id="description" name="description" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="discription" cols="30" rows="10">{{ old('discription') }}</textarea> 
+                                            <textarea id="description" name="description" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="discription" cols="30" rows="10">{{ old('discription') }}</textarea> 
                                         </div>
                                        
-                                        <div class="flex justify-center">
+                                        <div class="flex justify-center mt-4">
                                             <x-jet-button class="text-center">
                                                 Create
                                             </x-jet-button>
@@ -42,15 +43,16 @@
                             
                         </div>
                     </div>
-                    <div class="sm:w-1/2 w-full px-4">
-                        <h1 class="text-center text-3xl my-8">
-                            Categories
+                    <div class="sm:w-1/2 w-full px-4 py-4">
+                        <h1 class="text-center text-3xl my-8 dark:text-white">
+                           All Categories
                         </h1>  
-                        <ul class="flex flex-col justify-center m-8 max-h-full">
-                            @foreach ($categories as $category)
-                                <li class="flex justify-between px-3 py-2 my-3 bg-slate-200 rounded-md max-w-sm odd:bg-slate-50">
+                        <div class="  ">
+                            <ul class="flex flex-col justify-center m-8">
+                                @foreach ($categories as $category)
+                                <li class="flex justify-between mb-4 max-w-sm px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 text-sm text-gray-600 dark:text-gray-400">
                                     {{ $category->name }}
-                                    <span class="flex space-x-3">
+                                    <span class="flex space-x-3 ">
                                         <a href="{{ route('categories.edit', $category) }}">
                                         <x-edit-icon />
                                         </a>
@@ -63,8 +65,11 @@
                                     </span>
                                 </li>
                             @endforeach
+    
+                            </ul>
 
-                        </ul>
+                        </div>
+                        {!! $categories->links() !!}
                     </div>
                 </div>
             </div>

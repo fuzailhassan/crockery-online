@@ -1,6 +1,9 @@
 <a href="{{ route('cart.index') }}">
-    Cart 
-    <span class="inline-block text-xs bg-indigo-400 p-1 mt-0 rounded-full">
-        {{ $noOfCarts }}
+    <span class="flex">
+        <x-cart-icon class="" />
+        <span class="inline-block text-xs h-6 bg-indigo-600 text-white p-1 mt-0 rounded-full">
+            {{ $noOfCarts }}
+        </span>
+
     </span>
 </a>

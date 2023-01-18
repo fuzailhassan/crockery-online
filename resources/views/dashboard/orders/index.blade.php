@@ -1,34 +1,34 @@
 <x-dashboard-layout>
-    <div class="py-12">
+    {{-- <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">                
-                <div class="overflow-auto flex flex-col">
+                <div class="overflow-auto flex flex-col"> --}}
                     @if ($message = Session::get('message'))
                     <div class="text-green-800" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 4000)">
                         <p class="w-full text-center">{{ $message }}</p>
                     </div>
                 @endif 
-                    <h1 class="text-3xl text-center">
-                        Orders
-                    </h1>
-                    <table class="table-fixed border-collapse p-3 m-3 text-center"> 
-                        <tr>
-                            <th class="p-3 border border-white text-white bg-indigo-500"> Order ID </th>
-                            <th class="p-3 border border-white text-white bg-indigo-500"> Order Total </th>
-                            <th class="p-3 border border-white text-white bg-indigo-500"> Order Status </th>
-                            <th class="p-3 border border-white text-white bg-indigo-500"> </th>
+                <x-slot:heading>
+                    Orders
+                </x-slot>
+                    <x-data-table>
+                        <x-slot:head>
+                            <th class="px-4 py-3"> Order ID </th>
+                            <th class="px-4 py-3"> Order Total </th>
+                            <th class="px-4 py-3"> Order Status </th>
+                            <th class="px-4 py-3"> Action </th>
                             
-                        </tr>
+                        </x-slot>
                         {{-- @if ($orders === null)
                             <p> No Orders</p>
                         @endif --}}
                         
                            @foreach ($orders as $order)                           
-                            <tr>
-                                    <td class="p-3">{{ $order->id }}</td>
-                                    <td class="p-3">{{ $order->order_total }}</td>
-                                    <td class="p-3">{{ $order->order_status }}</td>
-                                    <td class="p-3">
+                           <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3 text-left">{{ $order->id }}</td>
+                                    <td class="px-4 py-3 text-left">{{ $order->order_total }}</td>
+                                    <td class="px-4 py-3 text-left">{{ $order->order_status }}</td>
+                                    <td class="px-4 py-3 text-left">
                                             <a href="{{ route('orders.show', $order) }}">
                                                 View Details
                                             </a>
@@ -38,7 +38,7 @@
                             </tr>
                            @endforeach 
                            
-                       </table>
+                        </x-data-table>
 
                 </div>
                  

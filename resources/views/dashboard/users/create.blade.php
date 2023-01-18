@@ -1,19 +1,16 @@
 <x-dashboard-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg sm:p-8">  
-                <h1 class="text-center text-3xl my-8">
-                    Add a User
-                </h1>         
+    <x-slot:heading>
+        Add User
+    </x-slot>        
                 <x-jet-validation-errors class="mb-4" />
      
                 <div class="overflow-auto flex flex-col my-4">
                     <form method="post" action="{{ route('users.store')}}">
                         @csrf                        
                         {{-- form sections --}}
-                        <div class="flex flex-col text-lg sm:flex-row justify-center justify-items-center">
+                        {{-- <div class="flex flex-col text-lg sm:flex-row justify-center justify-items-center"> --}}
                             {{-- form secton --}}
-                            <div class="flex flex-col space-y-6">
+                            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800   ">
                                 <div class="">
                                     <x-jet-label for="name" value="{{ __('Name') }}" />
                                     <x-jet-input id="name" class="block mt-1 w-full p-3" type="text" name="name" :value="old('name')"   required autofocus autocomplete="name" />
@@ -36,11 +33,11 @@
                                 </div> --}}
                                     
                                 <input type="hidden" name="isAdmin" value='0'>
-                                <div class="flex ">
+                                {{-- <div class="flex ">
                                     <x-jet-label for="isAdmin" value="{{ __('Make Admin') }}" />
                                     <x-jet-input id="isAdmin" class="block mt-1 ml-3 w-6 p-3" type="checkbox" name="isAdmin" value="1" />
-                                </div>
-                                <div class="flex justify-center">
+                                </div> --}}
+                                <div class="flex justify-center my-8">
                                     <x-jet-button class="text-center">
                                         Create
                                     </x-jet-button>
