@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string("picture")->nullable();
             $table->integer("price");
             $table->boolean("discounted");
-            $table->integer("dicount")->nullable();
+            $table->integer("discount")->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table');
+        Schema::dropIfExists('products');
     }
 };

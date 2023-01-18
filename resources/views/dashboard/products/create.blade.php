@@ -1,6 +1,5 @@
-<x-app-layout>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
+<x-dashboard-layout>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js" integrity="sha512-eV68QXP3t5Jbsf18jfqT8xclEJSGvSK5uClUuqayUbF5IRK8e2/VSXIFHzEoBnNcvLBkHngnnd3CY7AFpUhF7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script>
         tinymce.init({
             selector: '#description'
         });
@@ -8,7 +7,7 @@
     
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg sm:p-8">
                 <div class="w-full">
                     <h1 class="text-center block m-2 font-bold text-3xl">
                         Add Product
@@ -22,7 +21,7 @@
                         <form method="post" action="{{ route('products.store') }}" class="block">
                             @csrf
                             {{-- form sections --}}
-                            <div class="flex flex-col sm:flex-row justify-center justify-items-center">
+                            <div class="flex flex-col md:flex-row justify-center justify-items-center">
                                 {{-- form secton --}}
                                 <div class="">
 
@@ -55,8 +54,8 @@
                                 {{-- form section --}}
                                 <div class="ml-5">
                                     <x-jet-label for="description" value="{{ __('Description') }}" />
-                                    <textarea name="description" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="discription" cols="30" rows="10">{{ old('discription') }}</textarea> 
-                                </div>
+                                    <textarea id="description" name="description" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" id="discription" cols="30" rows="10">{{ old('discription') }}</textarea> 
+                                </div>  
                             </div>
     
                         </form>
@@ -65,4 +64,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-dashboard-layout>

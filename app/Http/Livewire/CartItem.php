@@ -25,9 +25,10 @@ class CartItem extends Component
 
     public function deleteCartItem(Cart $cart)
     {
-        $this->cart->delete();
-        $this->emit('updateCartCount');
+        $cart->delete();
+        $this->emit('updateCartCount');        
         $this->display = false;
+        $this->emit('isDeleted');
         
     }
     // public function updateQuantity($quantity, Cart $cart)

@@ -5,7 +5,7 @@
                 <div class="flex flex-wrap justify-center">
                     @foreach ($products as $product)
                     
-                     <x-product-card :pid='$product->id' :name='$product->name' :price='$product->price' />                 
+                     <x-product-card :product="$product" />                 
                        
                     @endforeach 
                 </div>

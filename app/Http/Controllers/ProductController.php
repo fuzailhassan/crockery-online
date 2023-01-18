@@ -18,8 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate('12');
+        $products = Product::paginate('12');           
         return view('product.index')->with('products',$products);
+        
     }
 
     /**
@@ -29,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        return view('dashboard.products.create');
     }
 
     /**
@@ -58,7 +59,7 @@ class ProductController extends Controller
         //     'discount'=>$validated['discount'],
         //     'discription'=>$validated['discription'],            
         // ]);
-        return redirect()->route('products.index');
+        return redirect()->route('dashboar.products.index')->banner('Product Added successfully');
     }
 
     /**
@@ -106,7 +107,7 @@ class ProductController extends Controller
             
         ]); 
         $product->update($request->all());
-        return redirect()->route('products.show',$product->id)->with('message','Successfully Updated!');
+        return redirect()->route('products.show',$product->id)->banner('Successfully Updated!');
     }
 
     /**
@@ -118,6 +119,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('dashboard.products.index');
     }
 }

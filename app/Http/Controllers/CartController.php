@@ -18,7 +18,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = auth()->user()->carts->where('checkedout', 0)->all();          
+        $carts = auth()->user()->carts->where('checked_out', 0)->all();          
         return view('carts.index')->with('carts',$carts);
     }
 

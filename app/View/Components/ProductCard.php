@@ -2,23 +2,20 @@
 
 namespace App\View\Components;
 
+use App\Models\Product;
 use Illuminate\View\Component;
 
 class ProductCard extends Component
 {
-    public $pid;
-    public $name;
-    public $price;
+    public $product;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($pid, $name, $price)
+    public function __construct(Product $product)
     {
-        $this->pid = $pid;
-        $this->name = $name;
-        $this->price = $price;  
+         $this->product = $product;
     }
 
     /**

@@ -9,6 +9,6 @@
         </td>
         
         <td class="p-3">{{ $cart->quantity * $cartPrice }}</td>
-        <td class="p-3"><button wire:click="deleteCartItem" name="delete" > Delete</button></td>
+        <td class="p-3"><button wire:click="deleteCartItem({{$cart}})" name="delete" > Delete</button></td>
     
 </tr>

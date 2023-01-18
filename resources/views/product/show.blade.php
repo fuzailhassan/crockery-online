@@ -32,9 +32,9 @@
                                 <form action="{{ route('products.destroy',$product->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <x-jet-button class="">
-                                        Delete
-                                    </x-jet-button>
+                                    <button type="submit">
+                                        <x-trash-icon />
+                                    </button>
                                 </form>
 
                             </div>                                
@@ -55,10 +55,10 @@
                         <div class="flex flex-row justify-between text-sm">
                             {{--2nd inner flex item rating stars --}}
                                 <ul class="flex flex-row my-2 justify-start flex-wrap">
-                                    <li class=""><a href="#"><i class="fa-solid fa-star text-amber-500"></i></a></li>
-                                    <li class=""><a href="#"><i class="fa-solid fa-star text-amber-500"></i></a></li>
-                                    <li class=""><a href="#"><i class="fa-solid fa-star text-amber-500"></i></a></li>
-                                    <li class=""><a href="#"><i class="fa-solid fa-star text-amber-500"></i></a></li>
+                                    <li class=""><a href="#"><i class="fa-solid fa-star text-indigo-500"></i></a></li>
+                                    <li class=""><a href="#"><i class="fa-solid fa-star text-indigo-500"></i></a></li>
+                                    <li class=""><a href="#"><i class="fa-solid fa-star text-indigo-500"></i></a></li>
+                                    <li class=""><a href="#"><i class="fa-solid fa-star text-indigo-500"></i></a></li>
                                     <li class=""><a href="#"><i class="fa-regular fa-star"></i></a></li>
                                     <li class="ml-1">120 Reveiws</li>
                                 </ul>                            
@@ -80,7 +80,7 @@
                                 @endif
                                 
                             </span>
-                            <span class="text-amber-300 line-through">
+                            <span class="text-indigo-300 line-through">
                                 Rs {{ $product->price }}                                
                             </span>
                         </div>
@@ -99,7 +99,7 @@
                         <div class="flex flex-row justify-center">
                             <livewire:counter />
                             <livewire:add-to-cart :product_id="$product->id" />
-                            <x-jet-button class="bg-amber-500 ml-3">
+                            <x-jet-button class="bg-indigo-500 ml-3">
                                 Shop Now
                             </x-jet-button>                            
                         </div>

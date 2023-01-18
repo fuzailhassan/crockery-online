@@ -18,13 +18,31 @@ class AddToCart extends Component
         
         if (auth()->user()) {
             
-            $cart = auth()->user()->carts->where('product_id',$this->product_id)->first();
+            $cart = auth()->user()->carts->where('product_id',$this->product_id)->where('checked_out',0)->first();
             
-            if ($cart) {
-                $cart->update([
-                    'quantity'=> $cart->quantity+1
-                ]);
+            // ModelsCart::updateOrCreate(
+            //     ['user_id' => auth()->user()->id,
+            //     'product_id' => $this->product_id],
+            //     ['quantity'=> $cart->quantity+1]
+
+            // );
+            
+            if ($cart) {                
+                
+                if ($cart->checked_out === 0) {
+                    // dd("checked==0");                    
+                    $cart->update([
+                        'quantity'=> $cart->quantity+1
+                    ]);
+                } else {
+                    // dd("checked==1"); 
+                    Cart::create([
+                        'user_id' => auth()->user()->id,
+                        'product_id' => $this->product_id
+                    ]);
+                }
             } else {
+                // dd("cart does noy exist");
                 Cart::create([
                     'user_id' => auth()->user()->id,
                     'product_id' => $this->product_id
