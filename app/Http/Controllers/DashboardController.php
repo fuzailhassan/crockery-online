@@ -16,7 +16,6 @@ class DashboardController extends Controller
         if (auth()->user()->isAdmin) {
             $users = User::orderByDesc('created_at')->paginate(10);
             $pendOrders = Order::where('order_status', 'pending')->get();
-
             $shippedOrders = Order::where('order_status', 'shipped')->count();
             $deliveredOrders = Order::where('order_status', 'shipped')->get();
             $sales = 0;
@@ -29,7 +28,7 @@ class DashboardController extends Controller
                 'shippedOrders' => $shippedOrders,
                 'sales' => $sales,
                 
-            ]);
+            ]); 
         } else {
             return redirect()->route('home');
         }

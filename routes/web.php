@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,7 +23,10 @@ Route::middleware([
     // Route::get('/admin', [HomeController::class, 'dashboard'])
     // ->name('dashboard');
     
+    
     Route::prefix('admin')->group(function () {
+        
+        Route::resource('feedbacks',FeedbackController::class);
 
 
         Route::get('/', [DashboardController::class, 'index'])
@@ -32,6 +38,9 @@ Route::middleware([
         Route::resource('categories', CategoryController::class)->except([
             'show', 'index'
         ]);
+        Route::resource('materials', MaterialController::class)->except([
+            'show', 'index'
+        ]);
 
 
     });
@@ -41,12 +50,22 @@ Route::middleware([
         'destroy'
     ]);
 
+
     Route::resource('orders',OrderController::class);
     
 });
+Route::resource('categories', CategoryController::class)->only([
+            'show', 'index'
+        ]);
+Route::resource('materials', MaterialController::class)->only([
+            'show', 'index'
+        ]);
+Route::get('/productsSorted/{sortBy}',[ProductController::class, 'indexSorted'])->name('products.indexSorted');
 
 
 Route::resource('products',ProductController::class);
+Route::get('reviews',[ProductReviewController::class, 'indexAll'])->name('reviews.indexAll');
+Route::resource('products.reviews', ProductReviewController::class)->shallow();
 
 
 // Route::get('/cart', [CartController::class, 'index'])->name('carts.index');

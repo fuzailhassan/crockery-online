@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-class CategoryController extends Controller
+class MaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        Gate::authorize('viewDashboard');
-        return view('dashboard.categories.index');
+        //
     }
 
     /**
@@ -27,8 +26,8 @@ class CategoryController extends Controller
     public function create()
     {
         Gate::authorize('viewDashboard');
-        $categories = Category::paginate(8);
-        return view('dashboard.categories.create')->with('categories', $categories);
+        $materials = Material::paginate(8);
+        return view('dashboard.materials.create')->with('materials', $materials);
     }
 
     /**
@@ -43,45 +42,42 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required','string'] 
         ]);
-        Category::create([
+        Material::create([
            'name' => $request['name'],
            'description' => $request['description'], 
         ]);
-        return redirect()->back()->banner('Category Added Successfully');
+        return redirect()->back()->banner('Material Added Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Material $material)
     {
-        $products = $category->products()->latest()->paginate(12);
-        $categories = Category::all();
-
+        $products = $material->products()->paginate(12);
+        // $products = Category::find($category->id)->products()->paginate(10);
         return view('product.index')->with([
             'products' => $products,
-            'category' => $category,
-            'categories' => $categories,
-
+            'material' => $material
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Material $material)
     {
         Gate::authorize('viewDashboard');
-        $categories = Category::paginate(10);
-        return view('dashboard.categories.edit')->with([
-            'category'=> $category,
-            'categories' => $categories
+        $materials = Material::paginate(10);
+        return view('dashboard.materials.edit')->with([
+            'material'=> $material,
+            'materials' => $materials
         ]);
     }
 
@@ -89,32 +85,31 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Material $material)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required','string'] 
         ]);
-        $category->update([
+        $material->update([
            'name' => $request['name'],
            'description' => $request['description'], 
         ]);
-        return redirect()->route('categories.create')->banner('Category Updated Successfully');
+        return redirect()->route('materials.create')->banner('Material Updated Successfully');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Material $material)
     {
-    $category->delete();
-    return redirect()->back()->banner('Category deleted Successfully');
-        
+        //
     }
 }

@@ -13,7 +13,7 @@
                 {{-- <div class="flex flex-col sm:flex-row justify-center"> --}}
                 {{-- form --}}
                     <div>
-                        <form method="post" action="{{ route('products.store') }}" class="block">
+                        <form method="post" action="{{ route('products.store') }}" class="block" enctype="multipart/form-data">
                             @csrf
                             {{-- form sections --}}
                             {{-- <div class="flex flex-col md:flex-row justify-center justify-items-center dark:bg-gray-800 px-4 py-3 mb-8 bg-white rounded-lg shadow-md"> --}}
@@ -29,6 +29,11 @@
                                         <x-jet-label for="price" value="{{ __('Price') }}" />
                                         <x-jet-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required />
                                     </div>
+
+                                    <div class="mt-4">
+                                        <x-jet-label for="images" value="{{ __('images') }}" />
+                                        <x-jet-input id="images" class="block mt-1 w-full" type="file" name="images" :value="old('images')" required />
+                                    </div>
             
                                     <div class="mt-4">
                                         <input type="hidden" name="discounted" value="0" />
@@ -41,7 +46,21 @@
                                     </div>
                                     <div class="mt-4">
                                         <x-jet-label for="category" value="{{ __('category') }}" />
-                                        <x-jet-input id="category" class="block mt-1 w-full" type="number" name="category" :value="old('category')" />
+                                        {{-- <x-jet-input id="category" class="block mt-1 w-full" type="number" name="category" :value="old('category')" value="{{ $product->category->name }}" /> --}}
+                                            <select id="category" name="category[]" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" multiple>
+                                                @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}" >{{ $category->name }}</option>                                                
+                                                @endforeach
+                                            </select>
+                                    </div>
+                                    <div class="mt-4">
+                                        <x-jet-label for="material" value="{{ __('material') }}" />
+                                        {{-- <x-jet-input id="material" class="block mt-1 w-full" type="number" name="material" :value="old('material')" value="{{ $product->material->name }}" /> --}}
+                                            <select id="material" name="material[]" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" multiple>
+                                                @foreach ($materials as $material)
+                                                <option value="{{ $material->id }}" >{{ $material->name }}</option>                                                
+                                                @endforeach
+                                            </select>
                                     </div>
                                     <div class="mt-4 text-center">
                                         

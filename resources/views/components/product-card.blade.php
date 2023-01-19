@@ -1,8 +1,8 @@
 @props(['product'])
-<div class="sm:w-3/12 bg-gray-200 rounded-lg p-3 m-2 text-center flex flex-col justify-center">
+<div class="md:w-3/12 bg-gray-200 rounded-lg p-3 m-2 text-center flex flex-col justify-center">
     <img 
-    class="w-11/12 mx-auto m-2 rounded-md" 
-    src="https://cdn.shopify.com/s/files/1/0671/0621/products/3213265_eea73e75-519c-46a5-a488-6fd8c81efe9b_360x.jpg?v=1665568643" 
+    class="w-11/12 max-h-48 mx-auto m-2 rounded-md" 
+    src="{{ $product->getFirstMediaUrl() ? $product->getFirstMediaUrl() : asset('storage/placeholder.jpg') }}" 
     />   
 {{-- @php
     dd($product);

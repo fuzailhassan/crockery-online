@@ -29,6 +29,8 @@
     <script src="{{ asset('administerator/assets/js/charts-pie.js') }}" defer></script>
   </head>
   <body>
+    <x-dashboard.banner />
+
     <div
       class="flex h-screen bg-gray-50 dark:bg-gray-900"
       :class="{ 'overflow-hidden': isSideMenuOpen }"

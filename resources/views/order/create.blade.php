@@ -23,7 +23,6 @@
                             <x-jet-button class="">
                                 Submit
                             </x-jet-button>
-
                         </div>
 
                     </div>

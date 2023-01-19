@@ -2,16 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\Order;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class OrderPolicy
+class ReviewPolicy
 {
     use HandlesAuthorization;
 
-    
     public function before(User $user)
     {
         if ($user->isAdmin) {
@@ -19,29 +18,24 @@ class OrderPolicy
         }
     }
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
+
     public function viewAny(User $user)
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Review  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Order $order)
+    public function view(User $user, Review $review)
     {
-        return $user->id === $order->user_id
-                    ? Response::allow()
-                    : Response::denyAsNotFound();
+        return true;
+        
     }
 
     /**
@@ -59,34 +53,38 @@ class OrderPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Order $order)
+    public function update(User $user, Review $review)
     {
-        return false;
+        return $user->id === $review->user_id
+                    ? Response::allow()
+                    : Response::denyAsNotFound();
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Order $order)
+    public function delete(User $user, Review $review)
     {
-        return false;
+        return $user->id === $review->user_id
+                    ? Response::allow()
+                    : Response::denyAsNotFound();
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Order $order)
+    public function restore(User $user, Review $review)
     {
         return false;
     }
@@ -95,10 +93,10 @@ class OrderPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Order $order)
+    public function forceDelete(User $user, Review $review)
     {
         return false;
     }

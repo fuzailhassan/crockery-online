@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Material;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,10 +19,54 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexSorted(string $sortBy)
+    {  
+        switch ($sortBy) {
+        case 'price_low':
+            $products = Product::orderBy('price')->paginate(12);
+            break;
+        case 'price_high':
+            $products = Product::orderByDesc('price')->paginate(12);
+        break;  
+        case 'latest':
+            $products = Product::orderByDesc('created_at')->paginate(12);
+        break; 
+        
+        default:
+        $products = Product::paginate(12);                
+            break;
+    }
+    $categories = Category::all();
+
+        return view('product.index')->with([
+            'products' =>$products,
+            'categories' => $categories,
+
+        ]);
+    }
+
+    public function index(Request $request)
     {
-        $products = Product::paginate('12');           
-        return view('product.index')->with('products',$products);
+        $searchTerm = '';
+        $searchTerm =  $request['search']!=null ? $request['search'] : $searchTerm;
+        
+        $products = Product::where('name', 'like', '%'.$searchTerm.'%')
+        ->orWhere('description', 'like', '%'.$searchTerm.'%' )
+        // ->orWhere(
+
+        // )
+        ->orderByDesc('created_at')
+        ->paginate('12');
+        $categories = Category::all();
+        // $materials = Material::all();
+        // $products = Product::paginate(12);
+
+        return view('product.index')->with([
+            'products' =>$products,
+            // 'searchTerm' => $searchTerm
+            // 'materials' => $materials,
+            'categories' => $categories,
+        ]);
         
     }
 
@@ -30,7 +77,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('dashboard.products.create');
+
+        $categories = Category::all();
+        $materials = Material::all();
+             
+        return view('dashboard.products.create',[
+            'materials' => $materials,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -40,26 +94,30 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        
+    {        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric'],
             'discounted' => [],
             'discount' => ['numeric', 'nullable'],
-            'description' => ['required', 'string', ],
+            'description' => ['required', 'string'],
+            'images' => ['image', 'required']
             
         ]); 
-        Product::create($request->all());
 
-        // Product::create([
-        //     'name' => $validated['name'],
-        //     'price'=>$validated['price'],
-        //     'discounted'=>$validated['discounted'],
-        //     'discount'=>$validated['discount'],
-        //     'discription'=>$validated['discription'],            
-        // ]);
-        return redirect()->route('dashboar.products.index')->banner('Product Added successfully');
+       $product = Product::create([
+            'name' => $request['name'],
+            'price'=>$request['price'],
+            'discounted'=>$request['discounted'],
+            'discount'=>$request['discount'],
+            'description'=>$request['description'],            
+        ]);
+
+        $product->categories()->attach($request['category']);
+        $product->materials()->attach($request['material']);
+        $product->addMediaFromRequest('images')
+        ->toMediaCollection();
+        return redirect()->route('products.show', $product)->banner('Product Added successfully');
     }
 
     /**
@@ -70,8 +128,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $rating = 0;
+        foreach ($product->reviews as $review ) {
+          $rating += $review->rating;  
+        }
+        
+        $rating = ($rating) ? $rating / $product->reviews->count(): 0;
         return view('product.show', [
-        'product' => $product
+        'product' => $product,
+        'rating' => $rating,
     ]);
     }
 
@@ -82,9 +147,14 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
-    {        
+    {   
+        $categories = Category::all();
+        $materials = Material::all();
+             
         return view('product.edit',[
-            'product' => $product
+            'product' => $product,
+            'materials' => $materials,
+            'categories' => $categories,
         ]);
         
     }
@@ -101,12 +171,31 @@ class ProductController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric'],
+            'images' => ['image'],
             'discounted' => [],
             'discount' => ['numeric', 'nullable'],
             'description' => ['required', 'string', ],
             
         ]); 
-        $product->update($request->all());
+        // dd($request['images']);
+        // dd($request['category']);
+        $product->update([
+            'name' => $request['name'],
+            'price' => $request['price'],
+            'discounted' => $request['discounted'],
+            'discount' => $request['discount'],
+            'descripton' => $request['descripton'],            
+        ]);
+        if ($request->hasFile('images')) {
+            $image = $product->getFirstMedia();
+            if ($image != null) {
+                $image->delete();
+            }
+        }        
+        $product->categories()->sync($request['category']);
+        $product->materials()->sync($request['material']);
+        $product->addMediaFromRequest('images')
+        ->toMediaCollection();
         return redirect()->route('products.show',$product->id)->banner('Successfully Updated!');
     }
 

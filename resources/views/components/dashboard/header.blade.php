@@ -156,7 +156,7 @@
           </template>
         </li>
         <!-- Profile menu -->
-        <li class="relative">
+        {{-- <li class="relative">
           <button
             class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
             @click="toggleProfileMenu"
@@ -253,7 +253,7 @@
               </li>
             </ul>
           </template>
-        </li>
+        </li> --}}
       </ul>
     </div>
   </header>

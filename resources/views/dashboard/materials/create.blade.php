@@ -1,17 +1,17 @@
 <x-dashboard-layout>
     <x-slot:heading>
-                        Categories
+                        Materials
                     </x-slot>
  
                 <div class="flex flex-col sm:flex-row space-x-5">
                     <div class="sm:w-1/2 w-full px-4">
                         <h1 class="text-center text-3xl my-8 dark:text-white">
-                            Add Category
+                            Add Material
                         </h1>         
                         <x-jet-validation-errors class="mb-4" />
              
                         <div class="overflow-auto flex flex-col my-4">
-                            <form method="post" action="{{ route('categories.store')}}">
+                            <form method="post" action="{{ route('materials.store')}}">
                                 @csrf                        
                                 {{-- form sections --}}
                                 <div class="flex flex-col text-lg sm:flex-row justify-center justify-items-center">
@@ -45,21 +45,19 @@
                     </div>
                     <div class="sm:w-1/2 w-full px-4 py-4">
                         <h1 class="text-center text-3xl my-8 dark:text-white">
-                           All Categories
+                           All materials
                         </h1>  
                         <div class="  ">
                             <ul class="flex flex-col justify-center m-8">
-                                @foreach ($categories as $category)
+                                @foreach ($materials as $category)
                                 <li class="flex justify-between mb-4 max-w-sm px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 text-sm text-gray-600 dark:text-gray-400">
                                     {{ $category->name }}
                                     <span class="flex space-x-3 ">
-                                        <a href="{{ route('categories.edit', $category) }}">
+                                        <a href="{{ route('materials.edit', $category) }}">
                                         <x-edit-icon />
                                         </a>
-                                        <form action="{{ route('categories.destroy', $category) }}" method="post">
-                                        @csrf
-                                        @method("DELETE")
-                                            <button>
+                                        <form action="{{ route('materials.destroy', $category) }}" method="post">
+                                        <button>
                                             <x-trash-icon />
                                         </button>
                                         </form>
@@ -71,7 +69,7 @@
                             </ul>
 
                         </div>
-                        {!! $categories->links() !!}
+                        {!! $materials->links() !!}
                     </div>
                 </div>
             </div>
