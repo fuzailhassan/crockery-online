@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}">
+                    <a href="{{ route('home') }}" class="text-indigo-700 font-bold text-xl">
                         Crockery-Online
                         {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
                     </a>
@@ -110,6 +110,9 @@
                 @else
                 <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                     {{ __('Login') }}
+                </x-jet-nav-link> 
+                <x-jet-nav-link href="/register" :active="request()->routeIs('Register')">
+                    {{ __('Register') }}
                 </x-jet-nav-link> 
 
                 @endauth                
