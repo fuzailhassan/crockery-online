@@ -6,8 +6,14 @@ use App\Http\Livewire\Cart;
 use App\Models\Cart as ModelsCart;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\User;
+use App\Notifications\OrderDelivered;
+use App\Notifications\OrderPlaced;
+use App\Notifications\OrderPlacedAdmin;
+use App\Notifications\OrderShipped;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
@@ -87,8 +93,11 @@ class OrderController extends Controller
                 ]);
                 $cart->update([
                     'checked_out' => 1
-                ]);
+                ]);            
             }
+            $admins = User::where('isAdmin', 1)->get();
+            Notification::send($admins, new OrderPlacedAdmin($order));
+            auth()->user()->notify(new OrderPlaced($order));
             
         }
         
@@ -155,6 +164,14 @@ class OrderController extends Controller
             ]
         ]);
         $order->update($request->all());
+        if ($order->order_status === 'shipped') {
+            $order->user->notify(new OrderShipped($order));
+            
+        }elseif ($order->order_status === 'delivered') {
+            $order->user->notify(new OrderDelivered($order));
+            
+        }
+
         return redirect()->route('orders.index')->banner('Updated Successfully!');;
     }
 

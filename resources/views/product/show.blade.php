@@ -118,6 +118,21 @@
                             @endforeach
                 
                         </ul>
+                        <div >
+                            Brand:
+                        </div>
+                        {{-- inner flex item --}}
+                        @isset($product->brand)
+                            
+                        <ul class="flex flex-row space-x-2">
+                            
+
+                            <li class=""> <a class="text-md font-semibold underline" href="{{ route('brands.show', $product->brand) }}">{{ $product->brand->name ?? '' }}</a></li>
+                                
+                            
+                
+                        </ul>
+                        @endisset
                         {{-- inner flex item and flex --}}
                         <div class="flex flex-row justify-center">
                             {{-- <livewire:counter /> --}}

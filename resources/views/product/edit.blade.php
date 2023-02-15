@@ -54,6 +54,15 @@
                                         </select>
                                 </div>
                                 <div class="mt-4">
+                                    <x-jet-label for="brand" value="{{ __('brand') }}" />
+                                    {{-- <x-jet-input id="brand" class="block mt-1 w-full" type="number" name="brand" :value="old('brand')" value="{{ $product->brand->name }}" /> --}}
+                                        <select id="brand" name="brand" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                            @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}" @selected($product->brand()->find($brand->id))>{{ $brand->name }}</option>                                                
+                                            @endforeach
+                                        </select>
+                                </div>
+                                <div class="mt-4">
                                     <x-jet-label for="material" value="{{ __('material') }}" />
                                     {{-- <x-jet-input id="material" class="block mt-1 w-full" type="number" name="material" :value="old('material')" value="{{ $product->material->name }}" /> --}}
                                         <select id="material" name="material[]" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" multiple>

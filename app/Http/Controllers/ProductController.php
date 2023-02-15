@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Material;
 use App\Models\Product;
@@ -80,10 +81,12 @@ class ProductController extends Controller
 
         $categories = Category::all();
         $materials = Material::all();
+        $brands = Brand::all();
              
         return view('dashboard.products.create',[
             'materials' => $materials,
             'categories' => $categories,
+            'brands' => $brands,
         ]);
     }
 
@@ -104,13 +107,19 @@ class ProductController extends Controller
             'images' => ['image', 'required']
             
         ]); 
+        $brand = Brand::find($request['brand']);
+        if ($brand = null) {
+            $brand = Brand::first();
+        }
 
        $product = Product::create([
             'name' => $request['name'],
             'price'=>$request['price'],
             'discounted'=>$request['discounted'],
             'discount'=>$request['discount'],
-            'description'=>$request['description'],            
+            'description'=>$request['description'],
+            'brand_id'=>$brand->id,
+
         ]);
 
         $product->categories()->attach($request['category']);
@@ -150,9 +159,11 @@ class ProductController extends Controller
     {   
         $categories = Category::all();
         $materials = Material::all();
+        $brands = Brand::all();
              
         return view('product.edit',[
             'product' => $product,
+            'brands' => $brands,
             'materials' => $materials,
             'categories' => $categories,
         ]);
@@ -177,13 +188,16 @@ class ProductController extends Controller
             'description' => ['required', 'string', ],
             
         ]); 
-        // dd($request['images']);
-        // dd($request['category']);
+        $brand = Brand::find($request['brand']);
+        if ($brand === null) {
+            $brand = Brand::first();
+        }
         $product->update([
             'name' => $request['name'],
             'price' => $request['price'],
             'discounted' => $request['discounted'],
             'discount' => $request['discount'],
+            'brand_id'=>$brand->id,
             'descripton' => $request['descripton'],            
         ]);
         if ($request->hasFile('images')) {
@@ -191,11 +205,12 @@ class ProductController extends Controller
             if ($image != null) {
                 $image->delete();
             }
+            $product->addMediaFromRequest('images')
+                ->toMediaCollection();
         }        
         $product->categories()->sync($request['category']);
         $product->materials()->sync($request['material']);
-        $product->addMediaFromRequest('images')
-        ->toMediaCollection();
+        
         return redirect()->route('products.show',$product->id)->banner('Successfully Updated!');
     }
 

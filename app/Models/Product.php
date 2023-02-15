@@ -12,8 +12,9 @@ class Product extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     protected $fillable = [
-        'name','price','discounted','discount','description'
+        'name','price','discounted','discount','description', 'brand_id'
     ];
+
 
     public function reviews()
     {
@@ -27,6 +28,10 @@ class Product extends Model implements HasMedia
     public function materials()
     {
         return $this->belongsToMany(Material::class);
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
   
 }

@@ -54,13 +54,8 @@
                                     <li class=""><a href="#"><i class="fa-regular fa-star"></i></a></li>
                                     <li class="ml-1">120 Reveiws</li>
                                 </ul>                            
-                            {{-- 2nd inner flex item feedbacks --}}
-                            <div class="my-2 text-center md:text-left">
-                                <a href="#">
-                                    <i class="fa-solid fa-message"></i>
-                                20 Feedbacks
-                                </a>                                
-                            </div>                            
+                         
+                                                      
                         </div>
                         {{-- inner flex item price --}}
                         <div class="font-semibold text-xl text-center">

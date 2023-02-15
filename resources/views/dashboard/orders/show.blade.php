@@ -6,9 +6,18 @@
                     <h1 class="text-2xl text-center dark:text-white">
                         Order ID: {{ $order->id }}
                     </h1>
-                    <h1 class="text-xl text-center dark:text-white">
-                        Order Status: {{ $order->order_status }}
-                    </h1>
+                    <div class="flex flex-col sm:flex-row justify-center space-x-3">
+                       <h1 class="text-xl text-center dark:text-white">
+                            Order By: {{ $order->user->name }}
+                        </h1>
+                        <h1 class="text-xl text-center dark:text-white">
+                            Email: {{ $order->user->email }}
+                        </h1>
+                        <h1 class="text-xl text-center dark:text-white">
+                            Order Status: {{ $order->order_status }}
+                        </h1>
+
+                    </div>
                     
                     <x-data-table>
                         <x-slot:head>
@@ -22,7 +31,7 @@
                         
                         @foreach ($orderDetails as $orderDetail)                           
                         <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="p-3">{{ $orderDetail->product->name }}</td>
+                            <td class="p-3">{{ $orderDetail->product->id }}</td>
                                     <td class="px-4 py-3">{{ $orderDetail->price }}</td>
                                     <td class="px-4 py-3">{{ $orderDetail->quantity }}</td>
                                     <td class="px-4 py-3">{{ $orderDetail->price * $orderDetail->quantity }}</td>                                    

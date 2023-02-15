@@ -1,6 +1,8 @@
 <?php
 
 // use App\Models\Product;
+
+use App\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -41,6 +43,11 @@ Route::middleware([
         Route::resource('materials', MaterialController::class)->except([
             'show', 'index'
         ]);
+        Route::resource('brands', BrandController::class)->except([
+            'show', 'index'
+        ]);
+        Route::get('reviews',[ProductReviewController::class, 'indexAll'])->name('reviews.indexAll');
+
 
 
     });
@@ -60,11 +67,13 @@ Route::resource('categories', CategoryController::class)->only([
 Route::resource('materials', MaterialController::class)->only([
             'show', 'index'
         ]);
+Route::resource('brands', BrandController::class)->only([
+            'show', 'index'
+        ]);
 Route::get('/productsSorted/{sortBy}',[ProductController::class, 'indexSorted'])->name('products.indexSorted');
 
 
 Route::resource('products',ProductController::class);
-Route::get('reviews',[ProductReviewController::class, 'indexAll'])->name('reviews.indexAll');
 Route::resource('products.reviews', ProductReviewController::class)->shallow();
 
 
