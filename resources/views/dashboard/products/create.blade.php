@@ -62,6 +62,15 @@
                                                 @endforeach
                                             </select>
                                     </div>
+                                    <div class="mt-4">
+                                        <x-jet-label for="brand" value="{{ __('brand') }}" />
+                                        {{-- <x-jet-input id="brand" class="block mt-1 w-full" type="number" name="brand" :value="old('brand')" value="{{ $product->brand->name }}" /> --}}
+                                            <select id="brand" name="brand" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                                @foreach ($brands as $brand)
+                                                <option value="{{ $brand->id }}" >{{ $brand->name }}</option>                                                
+                                                @endforeach
+                                            </select>
+                                    </div>
                                     <div class="mt-4 text-center">
                                         
                                     </div>

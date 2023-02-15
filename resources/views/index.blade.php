@@ -24,7 +24,7 @@
                 <div class="flex flex-col md:flex-row">
                     {{-- flex item image --}}
                     <div class="md:m-2 md:w-1/2 w-full mx-auto">
-                        <img src="https://cdn.shopify.com/s/files/1/0671/0621/products/sdfhht_800x.jpg?v=1651310074" alt="" class="w-full rounded-md">
+                        <img src="{{ asset('storage/placeholder.jpg') }}" alt="" class="w-full rounded-md">
                     </div>
                     {{-- flex item and data flex--}}
                     <div class="flex flex-col md:justify-start md:ml-2 mx-auto">
@@ -71,12 +71,7 @@
                             Color: Black
                         </div>
                         {{-- inner flex item --}}
-                        <ul class="flex flex-row">
-                            <li class="rounded-full w-8 h-8 bg-black border-2 mr-1 my-1"></li>
-                            <li class="rounded-full w-8 h-8 bg-blue-900 border-2 mr-1 my-1"></li>
-                            <li class="rounded-full w-8 h-8 bg-red-700 border-2 mr-1 my-1"></li>
-                            <li class="rounded-full w-8 h-8 bg-green-800 border-2 mr-1 my-1"></li>
-                        </ul>
+                       
                         {{-- inner flex item and flex --}}
                         <div class="flex flex-row justify-center">
                             {{-- <livewire:counter /> --}}

@@ -107,8 +107,11 @@ class ProductController extends Controller
             'images' => ['image', 'required']
             
         ]); 
+        // dd($request['brand']); 
+
         $brand = Brand::find($request['brand']);
-        if ($brand = null) {
+        // dd($brand);
+        if ($brand === null) {
             $brand = Brand::first();
         }
 
@@ -187,8 +190,10 @@ class ProductController extends Controller
             'discount' => ['numeric', 'nullable'],
             'description' => ['required', 'string', ],
             
-        ]); 
+        ]);
+        dd($request['brand']); 
         $brand = Brand::find($request['brand']);
+        
         if ($brand === null) {
             $brand = Brand::first();
         }
