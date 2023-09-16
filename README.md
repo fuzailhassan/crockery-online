@@ -7,4 +7,4 @@ Tech Stack I used is
     2. Livewire
     3. TailwindCSS
     4. AlpineJS
-This stack is also known as TALL stack.
+aka TALL stack.
